@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <base th:href="${#request.getContextPath()}+'/'">
+    <title>user list</title>
+    <script src="js/jquery.min.js" th:src="@{/statics/js/jquery.min.js}"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/statics/js/bootstrap.min.js}"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" th:href="@{/statics/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="css/common.css" th:href="@{/statics/css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="css/slide.css" th:href="@{/statics/css/slide.css}" />
+    <!--<link rel="stylesheet" type="text/css" href="css/flat-ui.min.css" th:href="@{/statics/css/flat-ui.min.css}" />-->
+    <link rel="stylesheet" type="text/css" href="css/jquery.nouislider.css" th:href="@{/statics/css/jquery.nouislider.css}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+
+    <!--<script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>-->
+    <!-- FooTable -->
+    <link href="css/myPage.css" th:href="@{/statics/css/myPage.css}" rel="stylesheet">
+
+    <script>
+        $(function() {
+            $(".meun-item").click(function() {
+                $(".meun-item").removeClass("meun-item-active");
+                $(this).addClass("meun-item-active");
+                var itmeObj = $(".meun-item").find("img");
+                itmeObj.each(function() {
+                    var items = $(this).attr("src");
+                    items = items.replace("_grey.png", ".png");
+                    items = items.replace(".png", "_grey.png")
+                    $(this).attr("src", items);
+                });
+                var attrObj = $(this).find("img").attr("src");
+                ;
+                attrObj = attrObj.replace("_grey.png", ".png");
+                $(this).find("img").attr("src", attrObj);
+            });
+            $("#topAD").click(function() {
+                $("#topA").toggleClass(" glyphicon-triangle-right");
+                $("#topA").toggleClass(" glyphicon-triangle-bottom");
+            });
+            $("#topBD").click(function() {
+                $("#topB").toggleClass(" glyphicon-triangle-right");
+                $("#topB").toggleClass(" glyphicon-triangle-bottom");
+            });
+            $("#topCD").click(function() {
+                $("#topC").toggleClass(" glyphicon-triangle-right");
+                $("#topC").toggleClass(" glyphicon-triangle-bottom");
+            });
+            $(".toggle-btn").click(function() {
+                $("#leftMeun").toggleClass("show");
+                $("#rightContent").toggleClass("pd0px");
+            })
+        })
+
+    </script>
+    <script type="text/javascript"  th:inline="javascript">
+        // //如果是异步加载列表，可以用这种方式
+        // function loadData(num) {
+        //     $("#PageCount").val(num);
+        //
+        // }
+        function loadData(num) {
+            //非异步加载数据，不需要传入页号num
+            $("#PageCount").val([[${users.total}]]);
+            loadpage();
+        }
+        function exeData(num, type) {
+            // loadData(num);
+            // loadpage();
+            //var context = [[@{/users/}]];
+            location.href = "users/" + num; // [[${users.pageNum}]];
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js" th:src="@{/statics/js/html5shiv.min.js}"></script>
+    <script src="js/respond.min.js" th:src="@{/statics/js/respond.min.js}"></script>
+    <![endif]-->
+
+
+
+</head>
+<body>
+<div id="wrap">
+<!--用户管理模块-->
+<!-- 左侧菜单栏目块 -->
+    <!--引入左侧菜单-->
+    <div th:replace="common/leftmenu::leftmenu"></div>
+    <div id="rightContent">
+        <a class="toggle-btn" id="nimei">
+            <i class="glyphicon glyphicon-align-justify"></i>
+        </a>
+        <!-- Tab panes -->
+
+        <div role="tabpanel" class="tab-pane" id="user">
+            <div class="check-div form-inline">
+                <div class="col-xs-3">
+                    <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#reviseUser" th:attr="currpage=${users.pageNum}">添加用户 </button>
+                </div>
+<!--                <div class="col-xs-4">
+                    <input type="text" class="form-control input-sm" placeholder="输入文字搜索">
+                    <button class="btn btn-white btn-xs ">查 询 </button>
+                </div>-->
+            </div>
+           <div class="data-div">
+            <div class="row tableHeader">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                    登录名
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    真实姓名
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    电话
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    状态
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    操作
+                </div>
+            </div>
+                <div class="tablebody" th:each="user:${users.list}">
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " th:text="${user.login}">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" th:text="${user.name}">
+                            李豆豆
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" th:text="${user.tel}">
+                            13688889999
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" th:text="${user.status} == 1? '启用':'禁用'">
+                            状态
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser" th:attr="userid=${user.id},currpage=${users.pageNum}">修改</button>
+                            <!--delete url: /user/{id}/{currentpage} -->
+                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser" th:attr="del_url=@{/user/}+${user.id}+'/page/'+${users.pageNum}">删除</button>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+        <!--页码块-->
+        <div>
+            <ul class="pagination  media-left pull-right" id="pagination">
+            </ul>
+            <input type="hidden" id="PageCount" th:value="${users.pages}" />
+            <input type="hidden" id="PageSize"  value=20 th:value="${users.pageSize}" />
+            <input type="hidden" id="countindex"  value="10"/>
+            <input type="hidden" id="currentPage"  value=1 th:value="${users.pageNum}" />
+
+            <!--设置最多显示的页码数 可以手动设置 默认为-->
+            <input type="hidden" id="visiblePages"  value="10" />
+        </div>
+    <form id="updateForm" method="post" class="form-horizontal" action="/user" th:action="@{/user}">
+        <!--<input type="hidden" name = "_method" id="_method" value="put"/>-->
+        <!--弹出修改用户窗口-->
+        <div class="modal fade" id="reviseUser" role="dialog" aria-labelledby="gridSystemModalLabel" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">修改用户</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form class="form-horizontal">
+                                <div class="form-group ">
+                                    <label for="login" class="col-xs-3 control-label">登录名：</label>
+                                    <div class="col-xs-6 ">
+                                        <input type="login" class="form-control" id="login" name="login"  placeholder="必填" >
+                                        <!--<input type="login" class="form-control input-sm" id="login" name="login"  placeholder="" >-->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-xs-3 control-label">真实姓名：</label>
+                                    <div class="col-xs-6 ">
+                                        <input type="" class="form-control" id="name" name="name" placeholder="必填" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-xs-3 control-label">密码：</label>
+                                    <div class="col-xs-6">
+                                        <input type="" class="form-control " id="password" name="password" placeholder="必填">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tel" class="col-xs-3 control-label">电话：</label>
+                                    <div class="col-xs-6">
+                                        <input type="" class="form-control" id="tel" name="tel" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="normal" class="col-xs-3 control-label">状态：</label>
+                                    <div class="col-xs-6">
+                                        <label class="control-label" for="normal">
+                                            <input type="radio" name="status" id="normal" value="1">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label class="control-label" for="forbid">
+                                            <input type="radio" name="status" id="forbid" value="0"> 禁用</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" class="hidden" id="id" name="id"/>
+                        <input type="hidden" class="hidden" id="currpage" />
+                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                        <button type="submit" name="Submit" class="btn btn-xs btn-green"  id="submitBtn">保 存</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+</form>
+
+        <!--弹出删除用户警告窗口-->
+        <div class="modal fade" id="deleteUser" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabe">提示</h4>
+                        <input type="hidden" id="del_url"/>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            确定要删除该用户？删除后不可恢复！
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                        <button type="button" class="btn  btn-xs btn-danger" onclick="deleteUser()">确 定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+</div>
+    </div>
+
+</div>
+<form id="deleteForm" method="post">
+    <!--因为是restful方式提交，必须要定义一个method为delete。要定义一个隐藏控件 -->
+    <input type="hidden" name = "_method" value="delete"/>
+</form>
+
+<!--<form id="addForm" method="post">
+    &lt;!&ndash;因为是restful方式提交，必须要定义一个method为put。要定义一个隐藏控件 &ndash;&gt;
+    <input type="hidden" name = "_method" value="post"/>
+</form>-->
+
+<script>
+    $('#submitBtn').click(function() {
+        $('#updateForm').bootstrapValidator('validate');
+
+        //if(!$('#updateForm').data('bootstrapValidator').isValid()) {
+            destroyValid();
+            initValid();
+        //}
+
+    });
+
+    $('#reviseUser').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var userId = button.attr('userid');
+        $("input:hidden[id='currpage']").val(button.attr('currpage'));
+        $("input:hidden[id='id']").val(userId);
+
+        initUser(userId, $(this));
+
+        initValid();
+
+    });
+    $("#reviseUser").on('hidden.bs.modal',function(e) {
+        //关闭modal时，移除上次的校验配置
+        destroyValid();
+    });
+
+    function initUser(id, modal) {
+        var currpage = $("input:hidden[id='currpage']").val();
+        var url;
+
+        if (id == undefined) {
+            modal.find('#login').val('');
+            modal.find('#name').val('');
+            modal.find('#tel').val('');
+            modal.find('#password').val('');
+            modal.find('#normal').attr("checked", true);
+            modal.find('.modal-title').text("添加用户");
+
+            //删除put标签
+            var hobj = $("input:hidden[id='_method']");
+            if (hobj != undefined) {
+                hobj.remove();
+            }
+            url = "user";
+            $("#updateForm").attr("action", url);
+        }
+        else {
+            var hobj = $("input:hidden[id='_method']");
+            if (hobj == undefined || hobj.val() == undefined) {
+                //添加put标签
+                $("#updateForm").prepend("<input type='hidden' name = '_method' id='_method' value='put'/>");
+            }
+
+            $(".userid").val(id);
+            modal.find('.modal-title').text("修改用户");
+            $("input:hidden[id='_method']").show();
+            $.ajax({
+                type: "get",
+                url: "user/" + id,
+                success: function (user) {
+                    modal.find('#login').val(user.login);
+                    modal.find('#name').val(user.name);
+                    modal.find('#tel').val(user.tel);
+                    modal.find('#password').val(user.password);
+                    (user.status == 1 ? modal.find('#normal').attr("checked", true) : modal.find('#forbid').attr("checked", true));
+                    //(user.status == 1 ? modal.find('#normal').val("1") : modal.find('#forbid').val("1"));
+                },
+                error: function (res) {
+                    console.log(res);
+                }
+            });
+            url = "user/page/" + currpage;
+            $("#updateForm").attr("action", url);
+        }
+    }
+
+    $('#deleteUser').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+
+        $("input:hidden[id='del_url']").val(button.attr('del_url'));
+    });
+    function deleteUser() {
+        //用form action方式，不用ajax
+        var url = $("input:hidden[id='del_url']").val();
+        $("#deleteForm").attr("action", url).submit();
+    }
+
+
+</script>
+<!--<script src="bootstrap-validator-default.js" th:src="@{/statics/js/bootstrap-validator-default.js}"></script>-->
+<script>
+    function initValid() {
+        $('#updateForm').bootstrapValidator({
+            message: '这个值没有被验证',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: { /*验证：规则*/
+                login: { //验证input项：验证规则
+                    message: 'The username is not valid',
+
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        }
+                    }
+                },
+                name: {
+                    message: 'name无效',
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        }
+                    }
+                },
+                password: {
+                    message: '密码无效',
+
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            min: 4,
+                            message: '密码长度须大于等于4位'
+                        }
+                    }
+                }
+
+            }
+        });
+    }
+
+    function destroyValid() {
+        var validator = $("#updateForm").data('bootstrapValidator');
+        if (validator != undefined) {
+            $("#updateForm").data('bootstrapValidator').destroy();
+            $('#updateForm').data('bootstrapValidator', null);
+        }
+    }
+</script>
+<!-- FooTable -->
+<script src="js/jqPaginator.min.js" th:src="@{/statics/js/jqPaginator.min.js}"></script>
+<script src="js/myPage.js" th:src="@{/statics/js/myPage.js}"></script>
+
+</body>
+</html>

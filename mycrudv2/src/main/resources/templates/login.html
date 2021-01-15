@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html  lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>login form</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" th:href="@{/statics/css/style.css}"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!-- -->
+<script>var __links = document.querySelectorAll('a');function __linkClick(e) { parent.window.postMessage(this.href, '*');} ;for (var i = 0, l = __links.length; i < l; i++) {if ( __links[i].getAttribute('data-t') == '_blank' ) { __links[i].addEventListener('click', __linkClick, false);}}</script>
+<script src="js/jquery.min.js" th:src="@{/statics/js/jquery.min.js}"></script>
+
+</head>
+<body>
+<!-- contact-form -->	
+<div class="message warning">
+<div class="inset">
+	<div class="login-head">
+		<h1>Login Form</h1>
+		 <!--<div class="alert-close"> </div>-->
+	</div>
+		<form method="post" action="/login/check" th:action="@{/login/check}">
+			<li>
+				<input type="text" class="text" name="userName" placeholder="输入用户名"><a href="" class=" icon user" tabindex="-1"></a>
+			</li>
+				<div class="clear"> </div>
+			<li>
+				<input type="password" name="password" placeholder="输入密码"> <a href="" class="icon lock" tabindex="-1"></a>
+			</li>
+			<div class="clear"> </div>
+			<div class="submit">
+				<input type="submit" value="登录" >
+				<p style="color:red" th:text="${errmsg}" th:if="${not #strings.isEmpty(errmsg)}"></p>
+				<!--<h4><a href="#">Lost your Password ?</a></h4>-->
+			  <div class="clear">  </div>
+
+			</div>
+				
+		</form>
+		</div>					
+	</div>
+	</div>
+	<div class="clear"> </div>
+<!--- footer --->
+<div class="footer">
+	<p>Copyright &copy; 9102.</p>
+</div>
+
+</body>
+</html>

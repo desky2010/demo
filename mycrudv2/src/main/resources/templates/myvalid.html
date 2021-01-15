@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>bootstrap-validator-my</title>
+    <script src="js/jquery.min.js" th:src="@{/statics/js/jquery.min.js}"></script>
+
+
+    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+    <script src="bootstrap-validator-default.js" th:src="@{/statics/js/bootstrap-validator-default.js}"></script>
+    <link rel="stylesheet" href="bootstrap-validator-my.css"  th:href="@{/statics/css/bootstrap-validator-my.css}" />
+</head>
+
+<body>
+<div class="panel">
+    <div class="panel-head">
+    </div>
+    <div class="panel-body">
+        <form id="defaultForm" role="form" class="form-signin form" action="registerAccount.do" method="post" th:action="@{/users/1}">
+            <div class="text-right">
+                <div class="form-group item">
+                    <label class="item-label" for="username">用户名：</label>
+                    <input class="form-control item-txt" type="text" name="username" id="username" />
+                    <ul id="errors-username" data-status="" class="errors" style="display: none;">
+                        <span class="arrow"></span>
+                    </ul>
+                </div>
+                <div class="form-group item">
+                    <label class="item-label" for="password">密码：</label>
+                    <input class="form-control item-txt" type="password" name="password" id="password" />
+                    <ul id="errors-password" data-status="" class="errors" style="display: none;">
+                        <span class="arrow"></span>
+                    </ul>
+                </div>
+
+                <div class="form-group item">
+                    <button class="item-btn" type="submit">确认注册</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    var config = {
+        fields: { /*验证：规则*/
+            username: { //验证input项：验证规则
+                message: 'The username is not valid',
+
+                validators: {
+                    notEmpty: {
+                        message: '用户名不能为空'
+                    }
+                }
+            },
+            password: {
+                message: '密码无效',
+
+                validators: {
+                    stringLength: {
+                        min: 8,
+                        message: '密码长度须大于等于8位'
+                    }
+                }
+            }
+        }
+    };
+    var $form = $('#defaultForm');
+    $form.initBV(config);
+    $form.find('.item-btn').click(function(e) {
+        if($form.valiFields(config.fields)) {
+            console.log(1)
+        }else {
+            console.log(0)
+        }
+        $('#defaultForm').submit();
+
+    });
+
+</script>
+
+</body>
+
+</html>

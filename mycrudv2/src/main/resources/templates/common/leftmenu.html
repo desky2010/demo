@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>menu</title>
+</head>
+<body>
+<!-- 左侧菜单栏目块 -->
+<div class="leftMeun" id="leftMeun" th:fragment="leftmenu">
+    <div id="logoDiv">
+        <p id="logoP"><img id="logo" alt="CRUD-Test" src="images/logo.png" th:src="@{/statics/images/logo.png}"><span>CRUD-Test-Demo</span></p>
+    </div>
+    <div id="personInfor">
+        <p>
+        <p id="userName"></p>
+        <p></p>
+        <p>
+            <a>退出登录</a>
+        </p>
+        </p>
+    </div>
+    <div class="meun-title">账号管理</div>
+    <div class="meun-item  meun-item-active" href="#user" aria-controls="user" role="tab" data-toggle="tab"><img src="images/icon_user_grey.png" th:src="@{/statics/images/icon_user_grey.png}">用户管理</div>
+    <div class="meun-item" href="#chan" aria-controls="chan" role="tab" data-toggle="tab"><img src="images/icon_change_grey.png" th:src="@{/statics/images/icon_change_grey.png}">修改密码</div>
+</div>
+</body>
+</html>

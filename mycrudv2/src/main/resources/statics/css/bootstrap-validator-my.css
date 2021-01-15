@@ -1,0 +1,281 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input,
+button {
+    outline: none;
+}
+
+ul {
+    list-style: none;
+}
+/*字体样式*/
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center,
+.center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+/*位置样式*/
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+/*浮动相关*/
+
+.float,
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.clear:after {
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+
+.pageWrap {
+    height: auto;
+    min-height: 100%;
+}
+/*panel start*/
+
+.panel {
+    border: 1px solid #6AC7DC;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.panel>div:first-child {
+    border-bottom: 1px solid #6AC7DC;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 4px;
+}
+
+.panel .panel-head {
+    padding: 0 20px;
+    position: relative;
+}
+
+.panel .panel-head .panel-title {
+    font-weight: bold;
+}
+
+.panel .panel-head .panel-btns {
+    position: absolute;
+    right: 20px;
+}
+
+.panel .panel-head .panel-btns span {
+    border-radius: 5px;
+    color: #fff;
+    padding: 2px 8px;
+}
+
+.panel .panel-head .panel-btns span:hover {
+    cursor: pointer;
+}
+
+.panel .panel-head .panel-btns .panel-btn-add {
+    background: #3686D1;
+}
+
+.panel .panel-body {
+    padding: 20px;
+}
+
+.panel .panel-body .panel-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.panel .panel-body .panel-table td,
+.panel .panel-body .panel-table th {
+    border: 1px solid #E0E0E0;
+    font-size: 14px;
+    padding: 0 8px;
+    font-style: normal;
+}
+
+.panel .panel-body .panel-table th {
+    height: 33px;
+    line-height: 33px;
+}
+
+.panel .panel-body .panel-table td {
+    height: 28px;
+    line-height: 28px;
+}
+/*panel end*/
+/*所有表单元素样式 start*/
+
+.form {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.form .item-txt,
+.form .item-sel {
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #CCCCCC;
+    padding: 0 10px;
+}
+
+.form .item-dis {
+    background: #E3E3E3;
+    color: #999999;
+}
+
+.form .item-dis:hover {
+    cursor: not-allowed;
+}
+
+.form .item {
+    font-size: 0;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.form .totalTip {
+    position: absolute;
+    left: 386px;
+    top: 0;
+    width: 235px;
+    height: 30px;
+    line-height: 30px;
+    color: red;
+}
+.form .errors {
+    width: 235px;
+    position: absolute;
+    left: 386px;
+    top: 0;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 1px #efefef;
+    background: #f9f9f9;
+    padding: 5px 10px;
+    z-index: 100;
+}
+.form .errors li {
+    line-height: 20px;
+    padding-left: 18px;
+    font-size: 12px;
+    color: #666;
+    font-family: Tahoma,Helvetica,"Microsoft Yahei","微软雅黑",Arial,STHeiti;
+    background: url(reg_icons.png) no-repeat -86px -112px;
+}
+.form .errors .arrow {
+    position: absolute;
+    top: 8px;
+    left: -6px;
+    height: 0px;
+    width: 0px;
+    border-top: 6px solid transparent;
+    border-right: 6px solid #ddd;
+    border-bottom: 6px solid transparent;
+}
+.form .errors .arrow:after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 1px;
+    border-top: 5px solid transparent;
+    border-right: 5px solid #f9f9f9;
+    border-bottom: 5px solid transparent;
+}
+
+.form .errors li.normal {
+    background-position: -86px -112px;
+}
+.form .errors li.success {
+    background-position: -86px -128px;
+}
+.form .errors li.error {
+    background-position: -86px -144px;
+    color: red;
+}
+.form .item * {
+    font-size: 14px;
+}
+
+.form .item .item-label {
+    display: inline-block;
+}
+
+.form .item .item-btn {
+    height: 30px;
+    width: 300px;
+    line-height: 30px;
+    display: inline-block;
+    background: #3686D1;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.form .item .item-btn:hover {
+    cursor: pointer;
+}
+
+.form .error-cont {
+    color: gray;
+    display: inline-block;
+    text-align: left;
+    font-size: 12px;
+    height: 15px;
+    position: relative;
+    white-space: nowrap;
+}
+
+.form .error-cont .icon {
+    position: absolute;
+    top: 1px;
+}
+
+.form .error-cont .tip {
+    position: absolute;
+    left: 20px;
+    font-size: 12px;
+}
+
+.form .redtip {
+    color: red;
+    font-weight: bold;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+}
+/*所有表单元素样式 end*/
